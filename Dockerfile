@@ -6,4 +6,4 @@ COPY . .
 RUN npm install --production
 
 ENTRYPOINT ["probot", "receive"]
-CMD ["/app/src/index.js"]
+CMD ["/app/lib/index.js"]
