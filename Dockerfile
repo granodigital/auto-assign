@@ -1,7 +1,9 @@
-FROM node:10
+FROM node:10-slim
 
 ENV PATH=$PATH:/github/workspace/node_modules/.bin
-COPY . /github/workspace
+
+WORKDIR /github/workspace
+COPY . .
 RUN npm install --production
 
 ENTRYPOINT ["probot", "receive"]
