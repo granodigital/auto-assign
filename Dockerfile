@@ -1,9 +1,7 @@
-FROM node:10
+FROM node:10-slim
 
-ENV PATH=$PATH:./node_modules/.bin
-ENV LOG_LEVEL=debug
-
+WORKDIR /probot
 COPY . .
 RUN npm install --production
 
-ENTRYPOINT ["probot", "receive", "./lib/index.js"]
+ENTRYPOINT ["./node_modules/.bin/probot", "receive", "./lib/index.js"]
