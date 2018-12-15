@@ -1,10 +1,9 @@
-FROM node:10-slim
+FROM node:10
 
-ENV PATH=$PATH:/github/workspace/node_modules/.bin
-
-WORKDIR /github/workspace
+ENV PATH=$PATH:/app/node_modules/.bin
+WORKDIR /app
 COPY . .
 RUN npm install --production
 
 ENTRYPOINT ["probot", "receive"]
-CMD ["/github/workspace/lib/index.js"]
+CMD ["/app/lib/index.js"]
