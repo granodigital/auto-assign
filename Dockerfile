@@ -1,9 +1,9 @@
 FROM node:10
 
-ENV PATH=$PATH:/app/node_modules/.bin
-WORKDIR /app
+ENV PATH=$PATH:./node_modules/.bin
+
 COPY . .
 RUN npm install --production
 
 ENTRYPOINT ["probot", "receive"]
-CMD ["/app/lib/index.js"]
+CMD ["./lib/index.js"]
