@@ -1,0 +1,18 @@
+{
+	"folders": [
+		{
+			"name": "Grano Github Actions",
+			"path": "."
+		},
+		{
+			"name": "Auto Assign",
+			"path": "auto-assign"
+		}
+	],
+	"settings": {
+		"files.exclude": {
+			"**/auto-assign": true,
+			"**/coverage": true
+		}
+	}
+}

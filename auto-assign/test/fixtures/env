@@ -1,0 +1,10 @@
+GITHUB_WORKFLOW=test
+GITHUB_ACTION=test-action
+GITHUB_ACTOR=granoecom
+GITHUB_REPOSITORY=grano-github-actions
+GITHUB_EVENT_NAME=issues
+GITHUB_EVENT_PATH=./fixtures/event.json
+GITHUB_WORKSPACE=/tmp/github/workspace
+GITHUB_SHA=90b059d1a3cc9e1e162e8800b15564e13e38a422
+GITHUB_REF=refs/heads/develop
+GITHUB_TOKEN=jjhkjh954tj34j3t845tj

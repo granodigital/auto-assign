@@ -1,7 +1,7 @@
 const AutoAssigner = require('..');
 
-require('dotenv').load({ path: `${__dirname}/../fixtures/.env` })
-process.env.GITHUB_EVENT_PATH = `${__dirname}/../fixtures/event.json`;
+require('dotenv').load({ path: `${__dirname}/./fixtures/env` })
+process.env.GITHUB_EVENT_PATH = `${__dirname}/./fixtures/event.json`;
 
 describe('auto-assign', () => {
 	let aa, github;
