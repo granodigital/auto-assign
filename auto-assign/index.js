@@ -18,15 +18,16 @@ module.exports = class AutoAssigner {
 		}
 
 		// Ignore all other events except "opened".
-		const action = this.tools.context.payload.action;
+		/* const action = this.tools.context.payload.action;
 		if (action !== 'opened') {
+			console.log('Skipped action', event, action);
 			process.exit(78);
-		}
+		} */
 
 		let users = new Set();
 
 		if (this.options.collaborators) {
-			users = new Set([...users, ...(await this.getCollaborators())]);
+			users = new Set([...users, ...(await this.getContributors())]);
 		}
 
 		// Make sure the creator of the issue/PR is excluded.
@@ -55,9 +56,10 @@ module.exports = class AutoAssigner {
 		}
 	}
 
-	async getCollaborators() {
+	async getContributors() {
+		console.log('Getting contributors', this.tools.context.repo());
 		const response = await this.github.repos.getContributorsStats(this.tools.context.repo());
-		const users = response.data
+		const users = (response.data || [])
 			// Last week's commit activity > 1
 			.filter(contrib => contrib.weeks.pop().c > 1)
 			.map(contrib =>contrib.author.login);
