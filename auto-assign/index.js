@@ -26,12 +26,20 @@ module.exports = class AutoAssigner {
 
 		let users = new Set();
 
-		if (this.options.collaborators) {
+		// Add users from command line.
+		if (this.options.user) {
+			users.add(Array.isArray(this.options.user) ? this.options.user : [this.options.user]);
+		}
+
+		// Add users from contributors.
+		if (this.options.contributors) {
 			users = new Set([...users, ...(await this.getContributors())]);
 		}
 
 		// Make sure the creator of the issue/PR is excluded.
 		users.delete(this.tools.context.actor);
+
+		console.log('Resolved users:', users);
 
 		if (users.size > 0) {
 			// Assign
@@ -59,7 +67,9 @@ module.exports = class AutoAssigner {
 	async getContributors() {
 		console.log('Getting contributors', this.tools.context.repo());
 		const response = await this.github.repos.getContributorsStats(this.tools.context.repo());
-		const users = (response.data || [])
+		console.log(response);
+		if (!Array.isArray(response.data)) return [];
+		const users = response.data
 			// Last week's commit activity > 1
 			.filter(contrib => contrib.weeks.pop().c > 1)
 			.map(contrib =>contrib.author.login);

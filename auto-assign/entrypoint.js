@@ -2,8 +2,15 @@ const AutoAssigner = require('.');
 const minimist = require('minimist');
 
 const ARGS_OPTIONS = {
-	boolean: ['collaborators', 'assign', 'review'],
-	string: ['team']
+	boolean: ['contributors', 'assign', 'review'],
+	string: ['team', 'user'],
+	alias: {
+		team: 't',
+		user: 'u',
+		contributors: 'c',
+		assign: 'a',
+		review: 'r'
+	}
 };
 
 const options = minimist(process.argv.slice(2), ARGS_OPTIONS);
