@@ -1,0 +1,30 @@
+{
+  "name": "auto-assign",
+  "version": "0.0.0",
+  "description": "Automatically assign people to issues and PRs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/granodigital/grano-github-actions.git"
+  },
+  "keywords": [
+    "github",
+    "actions",
+    "automation"
+  ],
+  "author": "Grano Digital <digital.helsinki@grano.fi>",
+  "contributors": [
+    "Ville Lahdenvuo <ville.lahdenvuo@grano.fi>"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/granodigital/grano-github-actions/issues"
+  },
+  "homepage": "https://github.com/granodigital/grano-github-actions#readme",
+  "dependencies": {
+    "actions-toolkit": "0.0.4"
+  }
+}
