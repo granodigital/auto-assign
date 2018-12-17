@@ -28,6 +28,7 @@
   "homepage": "https://github.com/granodigital/grano-github-actions#readme",
   "dependencies": {
     "actions-toolkit": "0.0.4",
+    "async-retry": "^1.2.3",
     "lodash": "^4.17.11",
     "minimist": "^1.2.0"
   },

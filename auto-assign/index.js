@@ -1,5 +1,6 @@
 const { Toolkit } = require('actions-toolkit');
 const { sample, isString } = require('lodash');
+const retry = require('async-retry');
 
 module.exports = class AutoAssigner {
 	constructor (options) {
@@ -66,10 +67,21 @@ module.exports = class AutoAssigner {
 
 	async getContributors() {
 		console.log('Getting contributors', this.tools.context.repo());
-		const response = await this.github.repos.getContributorsStats(this.tools.context.repo());
-		console.log(response);
-		if (!Array.isArray(response.data)) return [];
-		const users = response.data
+		const data = await retry(async bail => {
+			const response = await this.github.repos.getContributorsStats(this.tools.context.repo());
+			if (`${response.status}`.startsWith('4')) {
+				// @ts-ignore
+				bail(new Error(response.message));
+				return;
+			}
+			if (response.status === 202) {
+				throw new Error('Crunching numbers');
+			}
+			return response.data;
+		}, { retries: 4 });
+		console.log(data);
+		if (!Array.isArray(data)) return [];
+		const users = data
 			// Last week's commit activity > 1
 			.filter(contrib => contrib.weeks.pop().c > 1)
 			.map(contrib =>contrib.author.login);
