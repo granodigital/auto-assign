@@ -42,20 +42,23 @@ module.exports = class AutoAssigner {
 
 		console.log('Resolved users:', users);
 
-		if (users.size > 0) {
-			// Assign
-			if (this.options.assign) {
-				const assignee = sample([...users]);
+		// Assign
+		if (this.options.assign) {
+			const assignee = sample([...users]);
+			if (assignee) {
 				console.log('Assigning', assignee, 'from', users);
 				await this.github.issues
 					.addAssignees(this.tools.context
 						.issue({ assignees: [assignee] }));
 			}
-			// Request review
-			if (this.options.review) {
-				const reviewer = sample([...users]);
-				const teams = this.options.team;
-				console.log('Requesting review from', reviewer, 'from', users, 'and', teams);
+		}
+		// Request review
+		if (this.options.review) {
+			const reviewer = sample([...users]);
+			const teams = this.options.team;
+			if (reviewer || teams) {
+				console.log('Requesting review from', reviewer || 'no one', 'from', users,
+					'and teams', teams || 'none');
 				await this.github.pullRequests
 					.createReviewRequest(this.tools.context.issue({
 						reviewers: [reviewer],
