@@ -62,7 +62,10 @@ module.exports = class AutoAssigner {
 				await this.github.pullRequests
 					.createReviewRequest(this.tools.context.issue({
 						reviewers: reviewer ? [reviewer] : [],
-						team_reviewers: isString(teams) ? [teams] : teams
+						team_reviewers: isString(teams) ? [teams] : teams,
+						headers: {
+							'accept': 'application/vnd.github.machine-man-preview+json'
+						}
 					}));
 			}
 		}
