@@ -1,5 +1,5 @@
 const { Toolkit } = require('actions-toolkit');
-const { sample, isString } = require('lodash');
+const { sample, isString, sumBy } = require('lodash');
 const retry = require('async-retry');
 
 module.exports = class AutoAssigner {
@@ -67,6 +67,8 @@ module.exports = class AutoAssigner {
 
 	async getContributors() {
 		console.log('Getting contributors', this.tools.context.repo());
+		// Counts the sum of commits from the last _count_ weeks.
+		const sumOfCommits = (weeks, count = 8) => sumBy(weeks.slice(-count), week => week.c);
 		const data = await retry(async bail => {
 			const response = await this.github.repos.getContributorsStats(this.tools.context.repo());
 			if (`${response.status}`.startsWith('4')) {
@@ -79,12 +81,14 @@ module.exports = class AutoAssigner {
 			}
 			return response.data;
 		}, { retries: 4 });
-		console.log(data);
 		if (!Array.isArray(data)) return [];
 		const users = data
-			// Last week's commit activity > 1
-			.filter(contrib => contrib.weeks.pop().c > 1)
-			.map(contrib =>contrib.author.login);
+			// Is a real human and last weeks' commit activity >= 1
+			.filter(contrib => {
+				console.log(contrib.author.login, 'made', sumOfCommits(contrib.weeks), 'commits');
+				return contrib.author.type === 'User' && sumOfCommits(contrib.weeks) >= 1;
+			})
+			.map(contrib => contrib.author.login);
 		return users;
 	}
 }
