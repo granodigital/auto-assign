@@ -61,7 +61,7 @@ module.exports = class AutoAssigner {
 					'and teams', teams || 'none');
 				await this.github.pullRequests
 					.createReviewRequest(this.tools.context.issue({
-						reviewers: [reviewer],
+						reviewers: reviewer ? [reviewer] : [],
 						team_reviewers: isString(teams) ? [teams] : teams
 					}));
 			}
