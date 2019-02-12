@@ -19,11 +19,11 @@ module.exports = class AutoAssigner {
 		}
 
 		// Ignore all other events except "opened".
-		const action = this.tools.context.payload.action;
+		/* const action = this.tools.context.payload.action;
 		if (action !== 'opened') {
 			console.log('Skipped action', event, action);
 			process.exit(78);
-		}
+		} */
 
 		let users = new Set();
 
