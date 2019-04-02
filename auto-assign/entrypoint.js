@@ -15,7 +15,8 @@ const ARGS_OPTIONS = {
 
 const options = minimist(process.argv.slice(2), ARGS_OPTIONS);
 
-new AutoAssigner(options).run()
+new AutoAssigner(options)
+	.run()
 	.then(() => {
 		console.log('Auto Assigner ran successfully');
 	})

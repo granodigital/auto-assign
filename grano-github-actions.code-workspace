@@ -13,6 +13,7 @@
 		"files.exclude": {
 			"**/auto-assign": true,
 			"**/coverage": true
-		}
+		},
+		"editor.formatOnSave": true
 	}
 }

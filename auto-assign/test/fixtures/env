@@ -1,7 +1,7 @@
 GITHUB_WORKFLOW=test
 GITHUB_ACTION=test-action
 GITHUB_ACTOR=granoecom
-GITHUB_REPOSITORY=grano-github-actions
+GITHUB_REPOSITORY=granodigital/grano-github-actions
 GITHUB_EVENT_NAME=issues
 GITHUB_EVENT_PATH=./fixtures/event.json
 GITHUB_WORKSPACE=/tmp/github/workspace

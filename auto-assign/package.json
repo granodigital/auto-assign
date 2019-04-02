@@ -1,42 +1,52 @@
 {
-  "name": "auto-assign",
-  "version": "0.0.0",
-  "description": "Automatically assign people to issues and PRs",
-  "main": "index.js",
-  "scripts": {
-    "start": "GITHUB_EVENT_PATH=\"$INIT_CWD/test/fixtures/event.json\" DOTENV_CONFIG_PATH=./test/fixtures/env node -r dotenv/config entrypoint.js",
-    "test": "jest",
-    "test:w": "jest --watch"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+ssh://git@github.com/granodigital/grano-github-actions.git"
-  },
-  "keywords": [
-    "github",
-    "actions",
-    "automation"
-  ],
-  "author": "Grano Digital <digital.helsinki@grano.fi>",
-  "contributors": [
-    "Ville Lahdenvuo <ville.lahdenvuo@grano.fi>"
-  ],
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/granodigital/grano-github-actions/issues"
-  },
-  "homepage": "https://github.com/granodigital/grano-github-actions#readme",
-  "dependencies": {
-    "actions-toolkit": "0.0.4",
-    "async-retry": "^1.2.3",
-    "lodash": "^4.17.11",
-    "minimist": "^1.2.0"
-  },
-  "devDependencies": {
-    "dotenv": "^6.2.0",
-    "jest": "^23.6.0"
-  },
-  "jest": {
-    "collectCoverage": true
-  }
+	"name": "auto-assign",
+	"version": "0.0.0",
+	"description": "Automatically assign people to issues and PRs",
+	"main": "index.js",
+	"scripts": {
+		"start": "GITHUB_EVENT_PATH=\"$INIT_CWD/test/fixtures/event.json\" DOTENV_CONFIG_PATH=./test/fixtures/env node -r dotenv/config entrypoint.js",
+		"test": "jest",
+		"test:w": "jest --watch"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+ssh://git@github.com/granodigital/grano-github-actions.git"
+	},
+	"keywords": ["github", "actions", "automation"],
+	"author": "Grano Digital <digital.helsinki@grano.fi>",
+	"contributors": ["Ville Lahdenvuo <ville.lahdenvuo@grano.fi>"],
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/granodigital/grano-github-actions/issues"
+	},
+	"homepage": "https://github.com/granodigital/grano-github-actions#readme",
+	"dependencies": {
+		"actions-toolkit": "2.0.0",
+		"async-retry": "^1.2.3",
+		"lodash": "^4.17.11",
+		"minimist": "^1.2.0"
+	},
+	"devDependencies": {
+		"@types/jest": "^24.0.11",
+		"@types/lodash": "^4.14.123",
+		"dotenv": "^6.2.0",
+		"husky": "^1.3.1",
+		"jest": "^24.6.0",
+		"lint-staged": "^8.1.5",
+		"nock": "^10.0.6",
+		"prettier": "^1.16.4"
+	},
+	"jest": {
+		"collectCoverage": true,
+		"coveragePathIgnorePatterns": ["<rootDir>/test/"],
+		"setupFilesAfterEnv": ["<rootDir>/test/setup.js"]
+	},
+	"husky": {
+		"hooks": {
+			"pre-commit": "lint-staged"
+		}
+	},
+	"lint-staged": {
+		"*.js": ["prettier --write", "git add"]
+	}
 }
