@@ -15,6 +15,11 @@ const ARGS_OPTIONS = {
 
 const options = minimist(process.argv.slice(2), ARGS_OPTIONS);
 
+if (process.env.USER_TOKEN) {
+	console.log('Overriding GITHUB_TOKEN');
+	process.env.GITHUB_TOKEN = process.env.USER_TOKEN;
+}
+
 new AutoAssigner(options)
 	.run()
 	.then(() => {
