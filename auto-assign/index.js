@@ -5,7 +5,7 @@ const retry = require('async-retry');
 module.exports = class AutoAssigner {
 	constructor(options = {}) {
 		this.tools = new Toolkit({
-			event: ['issues', 'pull_requests']
+			event: ['issues', 'pull_request']
 		});
 		this.options = options;
 	}
